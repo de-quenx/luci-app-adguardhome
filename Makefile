@@ -15,6 +15,11 @@ LUCI_DEPENDS:=+!wget&&!curl&&!wget-ssl:curl
 LUCI_PKGARCH:=all
 LUCI_DESCRIPTION:=LuCI support for adguardhome
 
+# Dukungan APK untuk OpenWrt 25.12+
+ifdef CONFIG_USE_APK
+  PKGFLAGS:=nonshared
+endif
+
 define Package/luci-app-adguardhome/conffiles
 /usr/share/AdGuardHome/links.txt
 /etc/config/AdGuardHome
@@ -54,3 +59,4 @@ endef
 include $(TOPDIR)/feeds/luci/luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
+$(eval $(call BuildPackage,$(PKG_NAME)))
